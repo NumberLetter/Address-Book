@@ -4,5 +4,5 @@ test: test.o
 	rm test.o
 
 test.o: test.cpp Phone.cpp
-	g++ -std=c++11 Phone.cpp -o test.o #-ggdb
+	g++ -std=c++11 test.cpp Phone.cpp -o test.o #-ggdb
 
