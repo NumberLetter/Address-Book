@@ -5,3 +5,6 @@ Will be called in the constructor
 Search for the business name
 
 if(business) exists, then find all the local (certain distances) restaurants within the data set
+
+
+Use a -Make- file for the compiler 
