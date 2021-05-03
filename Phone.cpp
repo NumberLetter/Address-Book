@@ -4,16 +4,32 @@
  *  11 April, 2021
  */
 
-#include "phone.h"
+#include "Phone.h"
 
 // Constructor
-Phone::Phone(std::business_name)
+Phone::Phone(std::string fname){
+
+    // Read the file
+    read_CSV(std::string (fname));
+
+    user_input();   // Ask for the zip code
+
+    //search(business_name);  // Search if the business is in the CSV file
+}
+//Destcructor
+Phone::~Phone(){
+
+}
+void Phone::user_input()
 {
-    this->business_name = business_name;
-    search(business_name);  // Search if the business is in the CSV file
+    std::cout << "What is your zip code: ";
+    std::cin >> this->zip;
+
+    std::cout << "Enter a radius(miles) for the search range: ";
+    std::cin >> this->radius;
 }
 
-void Phone::upperCase(string& strToConvert)
+void Phone::upperCase(std::string strToConvert)
 {
     for(unsigned int i = 0; i < strToConvert.length(); i++)
     {
@@ -21,13 +37,65 @@ void Phone::upperCase(string& strToConvert)
     }
 }
 
+Phone::distance(double x1, double x2, double y1, double y2)
+{
+    double distance;
+
+    // Distance formula
+    distance = std:sqrt(std::pow(x2-x1) - std::power(y2-y1));
+
+    return distance;
+}
+
+void Phone::read_CSV(std::string fname)
+{
+    // //opening the file
+    // std::ifstream input(fname);
+    // //dynamic 2D array
+    // //int arr[][];
+    // //vector to store pait of cordinates
+    // std::vector<std::pair<double, double> > cord;
+    // std::vector<std::string> street;
+    // //string to store the addresses
+    // std::string address;
+
+    // //interger to store the latitude
+    // double lat;
+    // //interger to store the longitude
+    // double lon;
+
+
+    // std::string line;
+
+    // while(std::getline(input, line)){
+    //     //reads line
+    //     std::stringstream ss(line);
+    //     std::string temp;
+
+    //     std::getline(ss, temp, ',');
+    //     address = temp;
+    //     street.push_back(address);
+    //     //seperates collumns
+    //     //gets latitude
+    //     std::getline(ss, temp, ',');
+    //     lat = stod(temp);
+    //     //gets longitude
+    //     std::getline(ss, temp, ',');
+    //     lon = stod(temp);
+    //     //pushes pair of lon and lat
+    //     cord.push_back(std::make_pair(lat, lon));
+    // }
+    // input.close();
+    // for(int i = 0; i < 10; i++){
+    //     std::cout<< street[i] << " " << cord[i].first << " " << cord[i].second << "\n";
+    // }
+}
 
 int main(int argc, char ** argv)
 {
-    std::string b_name;
 
-    std::cout << "Please enter the business name: ";
-    std::cin >> b_name;
+    std::string name = argv[1];
 
-    Phone(b_name);
+    Phone read(name);
+    //read.Phone(name);
 }
