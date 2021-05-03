@@ -8,7 +8,6 @@
 
 // Constructor
 Phone::Phone(std::string fname){
-<<<<<<< HEAD
 
     // Read the file
     read_CSV(std::string (fname));
@@ -28,22 +27,21 @@ void Phone::user_input()
 
     std::cout << "Enter a radius(miles) for the search range: ";
     std::cin >> this->radius;
-=======
-    
-    
+
+
+
     read_CSV(std::string (fname));
 
     //search(business_name);  // Search if the business is in the CSV file
->>>>>>> 975225c88260713a5b5b3da3c795ec9e8df59fe8
+
 }
 //Destcructor
 Phone::~Phone(){
 
-<<<<<<< HEAD
-=======
+
 }
 
->>>>>>> 975225c88260713a5b5b3da3c795ec9e8df59fe8
+
 void Phone::upperCase(std::string strToConvert)
 {
     for(unsigned int i = 0; i < strToConvert.length(); i++)
@@ -122,7 +120,7 @@ void Phone::read_CSV(std::string fname)
     double lat;
     //interger to store the longitude
     double lon;
-    
+
 
     std::string line;
 
@@ -130,7 +128,7 @@ void Phone::read_CSV(std::string fname)
         //reads line
         std::stringstream ss(line);
         std::string temp;
-        
+
         std::getline(ss, temp, ',');
         address = temp;
         street.push_back(address);
@@ -147,7 +145,7 @@ void Phone::read_CSV(std::string fname)
     input.close();
     for(int i = 0; i < 10; i++){
         std::cout<< street[i] << " " << cord[i].first << " " << cord[i].second << "\n";
-        
+
     }
 }
 
@@ -171,7 +169,7 @@ void Phone::read_CSV(std::string fname)
 
     //     buisnusses.push_back(name);
     //     outfile.write(buisnesses);
-         
+
     //     getline(file, lon, ',');
     //     getline(file, lat, ',');
 
@@ -190,8 +188,7 @@ int main(int argc, char ** argv)
 
     Phone read(name);
     //read.Phone(name);
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> 975225c88260713a5b5b3da3c795ec9e8df59fe8
+
+
