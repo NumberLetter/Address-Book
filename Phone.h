@@ -66,7 +66,7 @@ class Phone
         void read_CSV(std::string fname);
 
         // Calculates the distance between two business locations
-        double distance(double x1, double x2, double y1, double y2);
+        double distance(double, double, double, double);
 
         // search the location, if data is available, otherwise, insert data
         //void search();
