@@ -12,6 +12,8 @@ Phone::Phone(std::string fname){
     // Read the file
     read_CSV(std::string (fname));
 
+    // Display data
+    display_data();
     // user_input();   // Ask for the zip code
 
     //search(business_name);  // Search if the business is in the CSV file
@@ -22,10 +24,13 @@ Phone::~Phone(){
 }
 void Phone::user_input()
 {
+    // If city not in csv file,
+    // ask user to input the city, longitude, and latitude
+
     std::cout << "What is your zip code: ";
     std::cin >> this->zip;
 
-    std::cout << "Enter a radius(miles) for the search range: ";
+    std::cout << "Enter a search radius(miles) for the search range: ";
     std::cin >> this->radius;
 }
 
@@ -37,7 +42,7 @@ void Phone::upperCase(std::string strToConvert)
     }
 }
 
-double Phone::distance(double x1, double x2, double y1, double y2)
+double Phone::get_distance(double x1, double x2, double y1, double y2)
 {
     double distance;
 
@@ -46,18 +51,31 @@ double Phone::distance(double x1, double x2, double y1, double y2)
     // Distance formula
     distance = std::sqrt(d1 - d2);
 
-    return distance;
+    double converted_value = 0.000621 * distance;
+    // Convert nautical mile to miles unit
+    double mile = converted_value + distance;
+
+    return mile;
+}
+
+void Phone::display_data()
+{
+    for(int i = 0; i < cord.size(); i++)
+    {
+        std::cout<< street[i] << ", " << cord[i].first << ", " << cord[i].second << "\n";
+    }
+
+    std::cout << "Location 1: " << cord[1].first << ", " << cord[1].second << std::endl;
+    std::cout << "Location 2: " << cord[2].first << ", " << cord[2].second << std::endl;
+
+    std::cout << "Distance: " << get_distance(cord[1].first, cord[2].second, cord[2].first, cord[2].second) << std::endl;
 }
 
 void Phone::read_CSV(std::string fname)
 {
     //opening the file
     std::ifstream input(fname);
-    //dynamic 2D array
-    //int arr[][];
-    //vector to store pait of cordinates
-    std::vector<std::pair<double, double> > cord;
-    std::vector<std::string> street;
+
     //string to store the addresses
     std::string address;
 
@@ -88,10 +106,6 @@ void Phone::read_CSV(std::string fname)
         cord.push_back(std::make_pair(lat, lon));
     }
 
-    for(int i = 0; i < cord.size(); i++){
-        std::cout<< street[i] << ", " << cord[i].first << ", " << cord[i].second << "\n";
-
-    }
     input.close();
 }
 
@@ -101,7 +115,6 @@ int main(int argc, char ** argv)
     std::string name = argv[1];
 
     Phone read(name);
-
 
 }
 

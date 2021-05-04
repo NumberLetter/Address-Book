@@ -43,9 +43,13 @@ class Phone
         Node* ptr, *ptr1, *ptr2;     // Node pointer
 
         std::string fname;  // File name
-        std::string zip;  // Name of the business
+        double zip;  // Name of the business
 
         double radius;  // Within a certain radius
+
+        //vector to store pait of cordinates
+        std::vector<std::pair<double, double> > cord;
+        std::vector<std::string> street;
 
 
     public:
@@ -60,13 +64,17 @@ class Phone
         // Write to CSV file
         //void dataToCSV();
 
+        // Display the data
+        void display_data();
+
+        // Ask user for input
         void user_input();
 
         // Read CSV file
         void read_CSV(std::string fname);
 
         // Calculates the distance between two business locations
-        double distance(double, double, double, double);
+        double get_distance(double, double, double, double);
 
         // search the location, if data is available, otherwise, insert data
         //void search();
