@@ -15,7 +15,8 @@ Phone::Phone(std::string fname){
     user_input();   // Ask for the zip code
 
     // Display data
-    display_data();
+    //display_data();
+    dataToCSV();
 }
 //Destcructor
 Phone::~Phone(){
@@ -26,11 +27,9 @@ void Phone::user_input()
     // Notes
 
     /*Priority Queue
-
         Read the city file
         store the data in a priority queue
         Ask user for city name:
-
         City: Lati & Long ()
     */
 
@@ -216,6 +215,27 @@ void Phone::read_CSV(std::string fname)
 
     input.close();
 }
+void Phone::dataToCSV()
+{   
+    std::ofstream outFile;
+    outFile.open("Out.CSV");
+    //comparison using pythagorian theorem
+    //smallest distance = top priority
+
+
+    for(int i = 0; i < (distance.size()); i++){
+        if(i < (distance.size()-1)){
+            outFile << cord[distance[i].second].first << ", " << cord[distance[i].second].second << "\n";
+        }
+        else{
+            outFile << cord[distance[i].second].first << ", " << cord[distance[i].second].second;
+        }
+                
+        
+    }
+
+    outFile.close();
+}
 
 int main(int argc, char ** argv)
 {
@@ -225,5 +245,3 @@ int main(int argc, char ** argv)
     Phone read(name);
 
 }
-
-
