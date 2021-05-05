@@ -25,6 +25,20 @@ Phone::~Phone(){
 }
 void Phone::user_input()
 {
+
+    // Notes
+
+    /*Priority Queue
+
+        Read the city file
+        store the data in a priority queue
+        Ask user for city name:
+
+        City: Lati & Long ()
+    */
+
+
+
     // If city not in csv file,
     // ask user to input the city, longitude, and latitude
 

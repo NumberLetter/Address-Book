@@ -20,7 +20,7 @@
  #include <array>
  #include <map>
  #include <set>
-
+ #include <queue>
 
 
 class Node
@@ -48,6 +48,7 @@ class Phone
 
         std::string address;    // Stores the address
         std::string fname;  // File name
+        std::string fname2;     // City file
         double zip;  // Name of the business
 
         double radius;  // Within a certain radius
@@ -55,14 +56,14 @@ class Phone
 
         int index;  // Stores the vector index
 
-        //vector to store pait of cordinates
-        std::vector<std::pair<double, double>> cord;
+        //vector to store pait of cordinates                                                    // Stack for visualization
+        std::vector<std::pair<double, double>> cord;                                            // Dynamic array
 
-        std::vector<std::pair<double, double>> user_coord;  // Store user data
+        std::vector<std::pair<double, double>> user_coord;  // Store user data                  // User data
         double user_lat, user_long;                         // Store user's long and lat
 
 
-        std::vector<std::pair<double, int>> distance;   // Stores the calculated distance;
+        std::vector<std::pair<double, int>> distance;   // Stores the calculated distance;      // Try Map & Set
 
         // latitude, long
 
@@ -73,6 +74,10 @@ class Phone
         std::set<std::string> set;
         std::map<std::string, std::string> map;
         std::string city_file;
+
+        // Queue
+        std::priority_queue<std::pair<double, double>>;
+        std::queue<string>;     // Takes in the city name       // Remember to push and pop
 
 
 
@@ -87,6 +92,10 @@ class Phone
 
         // Write to CSV file
         //void dataToCSV();
+
+
+        // Read Priority Queue
+        void read_p_queue(std::string fname2);
 
         // Display the data
         void display_data();
