@@ -62,9 +62,12 @@ class Phone
         double user_lat, user_long;                         // Store user's long and lat
 
 
-        std::vector<double> distance;   // Stores the calculated distance;
+        std::vector<std::pair<double, int>> distance;   // Stores the calculated distance;
+
+        // latitude, long
 
         std::vector<std::string> street;
+
 
         // Sets and maps data structure
         std::set<std::string> set;

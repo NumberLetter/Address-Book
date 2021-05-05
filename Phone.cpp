@@ -36,52 +36,61 @@ void Phone::user_input()
     std::getline(std::cin, this->address);
 
 
-    if(valid_address(this->address))
-    {
+    // if(valid_address(this->address))
+    // {
         std::cout << "Enter a search radius(miles) for the search range: ";
         std::cin >> this->radius;
 
-        // Do the calculation again here
-    }
-    else
-    {
+    //     // Do the calculation again here
+    // }
+    // else
+    // {
         // Check for valid input
-        do
-        {
+        // do
+        // {
+            std::string user_tmp;
             std::cout << "Please enter the latitude: ";
-            std::cin >> this->user_lat;
-        } while(user_lat >= 90.0 user_lat >= -90);
+            std::cin >> user_tmp;
+            this->user_lat = std::stod(user_tmp);
 
-        // Stores the user data in the vector of pairs
-        user_coord[0].first = user_lat;
-
-        // Check for valid input
-        do
-        {
             std::cout << "Please enter the longitude: ";
-            std::cin >> this->user_long;
-        } while(user_long >= 180 && user_long >= -180);
+            std::cin >> user_tmp;
+            this->user_long = std::stod(user_tmp);
 
-        // Stores the user data in the vector of pairs
-        user_coord[0].second = user_long;
+            user_coord.push_back(std::make_pair(this->user_lat, this->user_long));
+
+        // } while(user_lat >= 90.0 && user_lat >= -90 && user_long >= 180 && user_long >= -180);
 
 
         for(int i = 0; i < street.size(); i++)
         {
-            this->user_distance = get_distance(user_coord[0].first, user_coord[0].second, cord[i].first, cord[i].second);
+            this->user_distance = get_distance(user_coord[0].first, cord[i].first, user_coord[0].second, cord[i].second);
 
+            int counter = 0;
+            // std::cout << "Sum: " << user_lat + user_long;
+
+            // std::cout << "user coordinate x: " << user_coord[0].first << std::endl;
+
+            // std::cout << "user coordinate y: " << user_coord[0].second << std::endl;
+
+            // std::cout << "Distance: " << get_distance(user_coord[0].first, cord[i].first, user_coord[0].second, cord[i].second) << std::endl;
+            // // get_distance(cord[1].first, cord[2].second, cord[1].first, cord[2].second)
             if(user_distance < this->radius)
             {
                 // Add the locations that is within the user's radius
-                distance[i] = get_distance(user_coord[0].first, user_coord[0].second, cord[i].first, cord[i].second);
+
+                counter = i;
+
+                    // Stores the (distance, index)
+                 distance.push_back(std::make_pair(this->user_distance, counter));
+                // get_distance(user_coord[0].first, user_coord[0].second, cord[i].first, cord[i].second);
+
+                // std::cout << "Distance: " << distance[i] << std::endl;
             }
-
         }
-
-
-    }
+    // }
     // Upper case
-    std::transform(this->address.begin(), this->address.end(), this->address.begin(), ::toupper);
+    // std::transform(this->address.begin(), this->address.end(), this->address.begin(), ::toupper);
     // std::cout << this->address <<std::endl;
 
 
@@ -127,12 +136,30 @@ void Phone::upperCase(std::string strToConvert)
 
 double Phone::get_distance(double x1, double x2, double y1, double y2)
 {
+    // std::cout << "get_distance: "<< x1 << ", " << x2 << ", " << y1 << ", " << y2 << std::endl;
+
     double distance;
+
 
     double d1 = std::pow(x2-x1, 2.0);
     double d2 = std::pow(y2-y1, 2.0);
+
+    // std::cout << "Dist_1: " << d1 << std::endl;
+    // std::cout << "Dist_2: " << d2 << std::endl;
     // Distance formula
-    distance = std::sqrt(d1 - d2);
+
+    if(d2 > d1)
+    {
+        std::swap(d1, d2);
+    }
+
+    double diff = d1 - d2;
+
+
+
+    distance = std::sqrt(diff);
+
+    // std::cout << "Distance function: " << distance <<std::endl;
 
     double converted_value = 0.000621 * distance;
     // Convert nautical mile to miles unit
@@ -143,15 +170,24 @@ double Phone::get_distance(double x1, double x2, double y1, double y2)
 
 void Phone::display_data()
 {
-    for(int i = 0; i < cord.size(); i++)
-    {
-        std::cout<< street[i] << ", " << cord[i].first << ", " << cord[i].second << "\n";
-    }
+    // for(int i = 0; i < cord.size(); i++)
+    // {
+    //     std::cout<< street[i] << ", " << cord[i].first << ", " << cord[i].second << "\n";
+    // }
 
     std::cout << "User Location: " << user_coord[0].first << ", " << user_coord[0].second << std::endl;
     std::cout << "Data Location: " << cord[2].first << ", " << cord[2].second << std::endl;
 
-    // std::cout << "Distance: " << get_distance(cord[1].first, cord[2].second, cord[2].first, cord[2].second) << std::endl;
+    // distance<mile, index>
+    // unique key = index
+
+    std::cout << "Distance vector size: " << distance.size() << std::endl;
+    for(int i = 0; i < distance.size(); i++)
+    {
+        std::cout << "Distance: " << distance[i].first << ",    Index:" << distance[i].second << std::endl;
+    }
+
+    // std::cout << "Distance: " << get_distance(cord[1].first, cord[2].first, cord[1].second, cord[2].second) << std::endl;
 }
 
 void Phone::read_CSV(std::string fname)
