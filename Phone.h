@@ -76,11 +76,9 @@ class Phone
         std::string city_file;
 
         // Queue
-        // std::priority_queue<std::pair<double, double>>;
-        // std::queue<string>;     // Takes in the city name       // Remember to push and pop
+        //std::priority_queue<std::pair<double, double>>;
+        //std::queue<string>;     // Takes in the city name       // Remember to push and pop
 
-        // Pair<distance, string> (distance, address)
-        // Find the unique key to link to the sorted data
 
 
     public:
@@ -93,7 +91,7 @@ class Phone
         ~Phone();
 
         // Write to CSV file
-        //void dataToCSV();
+        void dataToCSV();
 
 
         // Read Priority Queue
@@ -109,7 +107,7 @@ class Phone
         bool valid_address(std::string);
 
 
-        // Read CSV file        // Map & Set
+        // Read CSV file
         void read_CSV(std::string fname);
 
         // Read CSV map
@@ -117,6 +115,12 @@ class Phone
 
         // Calculates the distance between two business locations
         double get_distance(double, double, double, double);
+
+        // search the location, if data is available, otherwise, insert data
+        //void search();
+
+        // ask user for data
+        //void insert();
 
         void upperCase(std::string strToConvert);
 
