@@ -75,6 +75,7 @@ class Phone
 
 
         // Sets and maps data structure
+        std::map<std::string, std::pair<double, double> > city_map;
         std::set<std::string> set;
         std::map<std::string, std::string> map;
         std::string city_file;
@@ -85,6 +86,8 @@ class Phone
 
         // Pair<distance, string> (distance, address)
         // Find the unique key to link to the sorted data
+        //for second one std::vector<std::pair<double, int>> distance;
+        std::priority_queue <  std::pair < double, int >  > p_queue;
 
 
     public:
@@ -100,8 +103,8 @@ class Phone
         void dataToCSV();
 
 
-        // Read Priority Queue
-        void read_p_queue(std::string fname2);
+        // Write Priority Queue
+        void write_p_queue();
 
         // Display the data
         void display_data();
@@ -117,7 +120,7 @@ class Phone
         void read_CSV(std::string fname);
 
         // Read CSV map
-        void read_CSV_map(std::string city_file);
+        void read_CSV_map(std::string fname2);
 
         // Calculates the distance between two business locations
         double get_distance(double, double, double, double);
