@@ -7,7 +7,7 @@
 #include "Phone.h"
 
 // Constructor
-Phone::Phone(std::string fname){
+Phone::Phone(std::string fname, std::string fname2){
 
     // Read the file
     read_CSV(std::string fname);
@@ -253,7 +253,7 @@ void Phone::read_CSV(std::string fname)
 
     input.close();
 }
-void Phone::read_CSV_map(std::string fname)
+void Phone::read_CSV_map(std::string fname2)
 {
 
     //opening the file
@@ -341,8 +341,9 @@ int main(int argc, char ** argv)
 {
 
     std::string name = argv[1];
+    std::string name2 = argv[2];
 
-    Phone read(name);
+    Phone read(name, name2);
 
 }
 
