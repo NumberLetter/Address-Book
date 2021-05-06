@@ -7,71 +7,42 @@
 #include "Phone.h"
 
 // Constructor
-Phone::Phone(std::string fname){
+Phone::Phone(std::string fname, std::string fname2){
 
     // Read the file
-    read_CSV(std::string fname);
+    //read_CSV(std::string (fname));
 
-    user_input();   // Ask for the zip code
+    //user_input();   // Ask for the zip code
+    read_CSV_map(fname2);
+
+
 
     // Display data
-    display_data();
-
-    // Write to a CSV file
-    dataToCSV();
+    //display_data();
+    //dataToCSV();
 }
-
 //Destcructor
 Phone::~Phone(){
 
 }
-
-void Phone::dataToCSV()
-{
-    // Write to the CSV file
-    std::ofstream outFile;
-    outFile.open("Points.CSV");
-
-
-    // Output the data
-    for(int i = 0; i < (distance_vector.size()); i++){
-        if(i < (distance_vector.size()-1)){
-            outFile << cord[distance_vector[i].second].first << ", " << cord[distance_vector[i].second].second << "\n";
-        }
-        else{
-            outFile << cord[distance_vector[i].second].first << ", " << cord[distance_vector[i].second].second;
-        }
-
-
-    }
-
-    // Close the file
-    outFile.close();
-}
-
-
 void Phone::user_input()
 {
-    int counter = 0;    // Stores the counter
+    // Notes
 
     /*Priority Queue
-
         Read the city file
         store the data in a priority queue
         Ask user for city name:
-
         City: Lati & Long ()
     */
 
     // Get entire line
-    std::cout << "What is your city: ";
-    std::getline(std::cin, this->city);
+    std::cout << "What is your address: ";
+    std::getline(std::cin, this->address);
 
-
-    // Check for valid input for the radius range
     do
     {
-        std::cout << "Enter a radius(miles) for the search range: ";
+        std::cout << "Enter a search radius(miles) for the search range: ";
         std::cin >> this->radius;
 
     }while(this->radius < 0);
@@ -91,32 +62,30 @@ void Phone::user_input()
         std::cin >> user_tmp;
         this->user_long = std::stod(user_tmp);
 
-
-        // Push to a vector of pairs
         user_coord.push_back(std::make_pair(this->user_lat, this->user_long));
 
     }while(this->user_lat >= 90.0 && this->user_lat >= -90 && this->user_long >= 180 && this->user_long >= -180);
 
 
-
-    for(int i = 0; i < street.size(); i++)
-    {
-
-        // Gets the distance from restaurant
-        this->user_distance = get_distance(user_coord[0].first, cord[i].first, user_coord[0].second, cord[i].second);
-
-        // Increase counter
-        counter++;
-
-        // Add the distance if it is within the radius search range
-        if(user_distance <= this->radius)
+        for(int i = 0; i < street.size(); i++)
         {
-            // Stores the (distance, index) as a pair
-            distance_vector.push_back(std::make_pair(this->user_distance, counter));
+            this->user_distance = get_distance(user_coord[0].first, cord[i].first, user_coord[0].second, cord[i].second);
 
+            int counter = 0;
+
+            if(user_distance < this->radius)
+            {
+                // Add the locations that is within the user's radius
+
+                // Set counter = index
+                counter = i;
+
+                // Stores the (distance, index)
+                distance.push_back(std::make_pair(this->user_distance, counter));
+
+            }
         }
-    }
-
+    // }
     // Upper case
     // std::transform(this->address.begin(), this->address.end(), this->address.begin(), ::toupper);
     // std::cout << this->address <<std::endl;
@@ -127,18 +96,17 @@ void Phone::user_input()
 
 bool Phone::valid_address(std::string address)
 {
-    std::string tmp_address;    // Temporary address
+    std::string tmp_address;
 
-    bool valid;                 // Check for true or false
-
+    bool valid;
 
     for(int i = 0; i < street.size(); i++)
     {
         tmp_address = street[i];
 
-
+        // std::cout << "Street size: " <<street.size() << std::endl;
         std:: cout << tmp_address << std::endl;
-
+        // std::cout << address << std::endl;
         int res = tmp_address.compare(address);
         if(res == 0)
         {
@@ -157,7 +125,6 @@ bool Phone::valid_address(std::string address)
 
 void Phone::upperCase(std::string strToConvert)
 {
-    // Converts to upper case
     for(unsigned int i = 0; i < strToConvert.length(); i++)
     {
         strToConvert[i] = toupper(strToConvert[i]);
@@ -166,27 +133,31 @@ void Phone::upperCase(std::string strToConvert)
 
 double Phone::get_distance(double x1, double x2, double y1, double y2)
 {
+    // std::cout << "get_distance: "<< x1 << ", " << x2 << ", " << y1 << ", " << y2 << std::endl;
 
-    double distance;                // Stores the distance
+    double distance;
 
-    double converted_lat = 69;      // Convert latitude to miles
-    double converted_long = 54.6;   // Convert longitude to miles
+
+    double d1 = std::pow(x2-x1, 2.0);
+    double d2 = std::pow(y2-y1, 2.0);
 
     // Distance formula
-    double lat_dist = (x2-x1);
-    double long_dist = (y2-y1);
+    if(d2 > d1)
+    {
+        std::swap(d1, d2);
+    }
 
-    lat_dist *= converted_lat;
-    long_dist *= converted_long;
-
-    double d1 = std::pow(lat_dist, 2.0);
-    double d2 = std::pow(long_dist, 2.0);
-
-    double diff = d1 + d2;
+    double diff = d1 - d2;
 
     distance = std::sqrt(diff);
 
-    return distance;
+    // std::cout << "Distance function: " << distance <<std::endl;
+
+    double converted_value = 0.000621 * distance;
+    // Convert nautical mile to miles unit
+    double mile = converted_value + distance;
+
+    return mile;
 }
 
 void Phone::display_data()
@@ -196,22 +167,16 @@ void Phone::display_data()
     //     std::cout<< street[i] << ", " << cord[i].first << ", " << cord[i].second << "\n";
     // }
 
-    // std::cout << "User Location: " << user_coord[0].first << ", " << user_coord[0].second << std::endl;
-    // std::cout << "Data Location: " << cord[2].first << ", " << cord[2].second << std::endl;
+    std::cout << "User Location: " << user_coord[0].first << ", " << user_coord[0].second << std::endl;
+    std::cout << "Data Location: " << cord[2].first << ", " << cord[2].second << std::endl;
 
     // distance<mile, index>
     // unique key = index
 
-    //   std::cout << "Distance: " << distance_vector[0].first << ",    Index:" << distance_vector[0].second << std::endl;
-    //   std::cout << "Distance: " << distance_vector[1].first << ",    Index:" << distance_vector[1].second << std::endl;
-    //   std::cout << "Distance: " << distance_vector[2].first << ",    Index:" << distance_vector[2].second << std::endl;
-    //   std::cout << "Distance: " << distance_vector[3].first << ",    Index:" << distance_vector[3].second << std::endl;
-
-
-    // std::cout << "Distance vector size: " << distance_vector.size() << std::endl;
-    for(int i = 0; i < distance_vector.size(); i++)
+    std::cout << "Distance vector size: " << distance.size() << std::endl;
+    for(int i = 0; i < distance.size(); i++)
     {
-        std::cout << "Distance: " << distance_vector[i].first << ",    Index:" << distance_vector[i].second << std::endl;
+        std::cout << "Distance: " << distance[i].first << ",    Index:" << distance[i].second << std::endl;
     }
 
     // std::cout << "Distance: " << get_distance(cord[1].first, cord[2].first, cord[1].second, cord[2].second) << std::endl;
@@ -225,9 +190,9 @@ void Phone::read_CSV(std::string fname)
     //string to store the addresses
     std::string address;
 
-    //double to store the latitude
+    //interger to store the latitude
     double lat;
-    //double to store the longitude
+    //interger to store the longitude
     double lon;
 
     std::string line;
@@ -236,6 +201,7 @@ void Phone::read_CSV(std::string fname)
         //reads line
         std::stringstream ss(line);
         std::string temp;
+
 
         std::getline(ss, temp, ',');
         address = temp;
@@ -253,7 +219,8 @@ void Phone::read_CSV(std::string fname)
 
     input.close();
 }
-void Phone::read_CSV_map(std::string fname)
+
+void Phone::read_CSV_map(std::string fname2)
 {
 
     //opening the file
@@ -319,31 +286,55 @@ void Phone::write_p_queue()
     }
 
     for(int i = 0; i < (distance.size()); i++){
-        
+
         if(i < (distance.size()-1)){
             oFile << "The city " << address << "is " <<  p_queue.top().first << "miles from a resturaunt at index " << p_queue.top().second << "\n";
             p_queue.pop();
         }
-        
+
         else{
             oFile << "The users city " << address << "is " << p_queue.top().first << "miles from a resturaunt at index " << p_queue.top().second;
             p_queue.pop();
-            
+
         }
-        
+
     }
 
     oFile.close();
-    
+
+}
+
+
+void Phone::dataToCSV()
+{
+    std::ofstream outFile;
+    outFile.open("Out.CSV");
+    //comparison using pythagorian theorem
+    //smallest distance = top priority
+
+
+    for(int i = 0; i < (distance.size()); i++){
+        if(i < (distance.size()-1)){
+            outFile << cord[distance[i].second].first << ", " << cord[distance[i].second].second << "\n";
+        }
+        else{
+            outFile << cord[distance[i].second].first << ", " << cord[distance[i].second].second;
+        }
+
+
+    }
+
+    outFile.close();
+
 }
 
 int main(int argc, char ** argv)
 {
 
     std::string name = argv[1];
+    std::string name2 = argv[2];
 
-    Phone read(name);
+    Phone read(name, name2);
+
 
 }
-
-
