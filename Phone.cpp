@@ -253,6 +253,89 @@ void Phone::read_CSV(std::string fname)
 
     input.close();
 }
+void Phone::read_CSV_map(std::string fname)
+{
+
+    //opening the file
+    std::ifstream input(fname);
+
+    //string to store the addresses
+    std::string address;
+
+    //interger to store the latitude
+    double lat;
+    //interger to store the longitude
+    double lon;
+
+    std::string line;
+
+    while(std::getline(input, line)){
+        //reads line
+        std::stringstream ss(line);
+        std::string temp;
+
+
+        std::getline(ss, temp, ',');
+        address = temp;
+        //seperates collumns
+        std::getline(ss, temp, ',');
+        std::getline(ss, temp, ',');
+        //gets latitude
+        std::getline(ss, temp, ',');
+
+        lat = stod(temp);
+        //gets longitude
+        std::getline(ss, temp, ',');
+        lon = stod(temp);
+        //pushes pair of lon and lat
+
+        city_map.insert(std::pair < std::string, std::pair<double, double> > (address, std::make_pair(lat, lon)));
+        //std::cout << address << "\n";
+    }
+
+    input.close();
+    // for(auto &[a,b]:city_map){
+    //     std::cout << a << " " << b.first << " " << b.second << "\n";
+    // }
+}
+void Phone::write_p_queue()
+{   //
+
+    std::ofstream oFile;
+    oFile.open("P_Queue.csv");
+    //comparison using pythagorian theorem
+    //smallest distance = top priority
+
+    for(int i = 0; i < (distance.size()); i++){
+
+
+        p_queue.push(std::make_pair(distance[i].first,
+        distance[i].second));
+        //check distance vector for least distance. distance, index
+        //dist vector <dist, index>
+        //p_q (dist, index)
+        //map<city lat, lon>
+        //
+    }
+
+    for(int i = 0; i < (distance.size()); i++){
+        
+        if(i < (distance.size()-1)){
+            oFile << "The city " << address << "is " <<  p_queue.top().first << "miles from a resturaunt at index " << p_queue.top().second << "\n";
+            p_queue.pop();
+        }
+        
+        else{
+            oFile << "The users city " << address << "is " << p_queue.top().first << "miles from a resturaunt at index " << p_queue.top().second;
+            p_queue.pop();
+            
+        }
+        
+    }
+
+    oFile.close();
+    
+}
 
 int main(int argc, char ** argv)
 {
