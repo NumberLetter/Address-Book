@@ -7,7 +7,7 @@
 #include "Phone.h"
 
 // Constructor
-Phone::Phone(std::string fname){
+Phone::Phone(std::string fname, std::string fname2){
 
     // Read the file
     read_CSV(std::string fname);
@@ -47,6 +47,45 @@ void Phone::dataToCSV()
 
     // Close the file
     outFile.close();
+}
+
+void Phone::write_p_queue()
+{   //
+
+    std::ofstream oFile;
+    oFile.open("P_Queue.csv");
+    //comparison using pythagorian theorem
+    //smallest distance = top priority
+
+    for(int i = 0; i < (distance.size()); i++){
+
+
+        p_queue.push(std::make_pair(distance[i].first,
+        distance[i].second));
+        //check distance vector for least distance. distance, index
+        //dist vector <dist, index>
+        //p_q (dist, index)
+        //map<city lat, lon>
+        //
+    }
+
+    for(int i = 0; i < (distance.size()); i++){
+        
+        if(i < (distance.size()-1)){
+            oFile << "The city " << address << "is " <<  p_queue.top().first << "miles from a resturaunt at index " << p_queue.top().second << "\n";
+            p_queue.pop();
+        }
+        
+        else{
+            oFile << "The users city " << address << "is " << p_queue.top().first << "miles from a resturaunt at index " << p_queue.top().second;
+            p_queue.pop();
+            
+        }
+        
+    }
+
+    oFile.close();
+    
 }
 
 
@@ -258,7 +297,8 @@ int main(int argc, char ** argv)
 {
 
     std::string name = argv[1];
-
+    std::string name2 = argv[2];
+    
     Phone read(name);
 
 }
