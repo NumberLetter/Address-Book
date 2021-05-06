@@ -46,7 +46,7 @@ class Phone
 
         Node* ptr, *ptr1, *ptr2;     // Node pointer
 
-        std::string address;    // Stores the address
+        std::string city;    // Stores the city
         std::string fname;  // File name
         std::string fname2;     // City file
         double zip;  // Name of the business
@@ -63,11 +63,15 @@ class Phone
         double user_lat, user_long;                         // Store user's long and lat
 
 
-        std::vector<std::pair<double, int>> distance;   // Stores the calculated distance;      // Try Map & Set
+        std::vector<std::pair<double, int>> distance_vector;   // Stores the calculated distance;      // Try Map & Set
 
         // latitude, long
 
         std::vector<std::string> street;
+
+        std::map<std::pair<double,double>, std::string> city_map;
+        city_map.insert(std::make_pair(std::make_pair(lat, lon), address));
+
 
 
         // Sets and maps data structure
@@ -93,7 +97,7 @@ class Phone
         ~Phone();
 
         // Write to CSV file
-        //void dataToCSV();
+        void dataToCSV();
 
 
         // Read Priority Queue
