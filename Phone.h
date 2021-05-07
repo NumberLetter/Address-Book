@@ -74,6 +74,15 @@ class Phone
 
 
         // Sets and maps data structure
+<<<<<<< HEAD
+=======
+
+        std::map<std::string, std::pair<double, double> > city_map;
+        std::string city_file;
+        std::vector <std::string> city_name;
+        std::vector <double> city_lat;
+        std::vector <double> city_lon;
+>>>>>>> 26de70b54e43f35b663fc7fdbdd3e6d8c058da80
 
         std::map<std::string, std::pair<double, double> > city_map;
         std::string city_file;
