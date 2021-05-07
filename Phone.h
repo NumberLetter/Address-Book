@@ -21,6 +21,7 @@
  #include <map>
  #include <set>
  #include <queue>
+ #include <bits/stdc++.h>
 
 
 class Node
@@ -46,7 +47,7 @@ class Phone
 
         Node* ptr, *ptr1, *ptr2;     // Node pointer
 
-        std::string city;    // Stores the city
+        std::string address;    // Stores the address
         std::string fname;  // File name
         std::string fname2;     // City file
         double zip;  // Name of the business
@@ -57,39 +58,43 @@ class Phone
         int index;  // Stores the vector index
 
         //vector to store pait of cordinates                                                    // Stack for visualization
-        std::vector<std::pair<double, double>> cord;                                            // Dynamic array
+        std::vector<std::pair <double, double>> cord;                                            // Dynamic array
 
-        std::vector<std::pair<double, double>> user_coord;  // Store user data                  // User data
+        std::vector<std::pair <double, double>> user_coord;  // Store user data                  // User data
         double user_lat, user_long;                         // Store user's long and lat
 
 
-        std::vector<std::pair<double, int>> distance_vector;   // Stores the calculated distance;      // Try Map & Set
+        std::vector<std::pair<double, int>> distance;   // Stores the calculated distance;      // Try Map & Set
 
         // latitude, long
 
         std::vector<std::string> street;
 
-        std::map<std::pair<double,double>, std::string> city_map;
-        city_map.insert(std::make_pair(std::make_pair(lat, lon), address));
 
 
 
         // Sets and maps data structure
-        std::set<std::string> set;
-        std::map<std::string, std::string> map;
+
+        std::map<std::string, std::pair<double, double> > city_map;
         std::string city_file;
-
+        std::vector <std::string> city_name;
+        std::vector <double> city_lat;
+        std::vector <double> city_lon;
+        
+        
+        
         // Queue
-        // std::priority_queue<std::pair<double, double>>;
-        // std::queue<string>;     // Takes in the city name       // Remember to push and pop
+        //Output the closest distance from users city
+        //output closest resturaunt to the city, address of the resturaunt from read file,
+        std::vector <std::string> resturaunt_address;
+        //for second one std::vector<std::pair<double, int>> distance;
+        std::priority_queue <  std::pair < double, int >  > p_queue;
 
-        // Pair<distance, string> (distance, address)
-        // Find the unique key to link to the sorted data
 
 
     public:
 
-        Phone(std::string fname);  // Constructor
+        Phone(std::string fname, std::string fname2);  // Constructor
         Phone();
 
 
@@ -101,7 +106,7 @@ class Phone
 
 
         // Read Priority Queue
-        void read_p_queue(std::string fname2);
+        void write_p_queue();
 
         // Display the data
         void display_data();
@@ -113,14 +118,22 @@ class Phone
         bool valid_address(std::string);
 
 
-        // Read CSV file        // Map & Set
+        // Read CSV file
         void read_CSV(std::string fname);
 
         // Read CSV map
-        void read_CSV_map(std::string city_file);
+        void read_CSV_map(std::string fname2);
+
+        //city is unique, city name as key
 
         // Calculates the distance between two business locations
         double get_distance(double, double, double, double);
+
+        // search the location, if data is available, otherwise, insert data
+        //void search();
+
+        // ask user for data
+        //void insert();
 
         void upperCase(std::string strToConvert);
 
