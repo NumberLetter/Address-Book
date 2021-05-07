@@ -13,7 +13,7 @@ The project focuses on concepts on data structures and abstractions.
 3. The program will output a Points.csv file.
 4. Enter the file to visual graph: https://www.csvplot.com/
 
-# Code overview :
+# Code overview
 
 Upon compiling, the user is asked to input a city name, a radius, and a location. Then, we read a csv file containing resturaunt adresses and the latitude and longitude of each resturaunt. These values will be stored in a dynamic array. Next, the distance from the user's input location is calculated and checked to see if the resturaunt is within the distance. We push those values into a priority queue in order to sort them by the furthest distance away from the user to the closest. Finally, we output elements from the priority queue into a csv file for the user to read. 
 
@@ -22,12 +22,14 @@ Upon compiling, the user is asked to input a city name, a radius, and a location
 For the project, we decided to use a **Dynamic Array/Vector**, **Priority Queue**, and **Map&Set**.
 
 **Dynamic Arrays/Vector : Desired demonstration of knowledge: Mastery**
+
 The vector is similar to a dynamic array. It can expands its memory at run time and always store elements in contiguous memory location.
 When the program reads a CSV file, all the data is stored in a vector. The elements will remain in the same order when they are inserted.
 Reallocation of new elements is done implicitly. The simplicity of vectors allow the program to find the index quickly and keeps track of
 the size at all times.
 
 **Priority Queue : Desired demonstration of knowledge : Mastery**
+
 A Priority Queue is a type of container adapter that processes only the highest priority element. It follows the same rule,
 First-in-First-out (FIFO), as a normal queue, but the elements are removed based on priority. The element with the highest priority
 is the first one to be removed from the priority queue. The unique function insert_with_priority adds an element with priority.
@@ -36,6 +38,7 @@ restaurants from least to greatest distance in order to simplify it for the user
 
 
 **Maps & Set : Desired demonstration of knowledge : Mastery**
+
 A Map & Set is used to store key value pairs. A map is similar to a dictionary (Only one unique word,
 but contains different definitions).The program uses a unique key from the user which is the city's name.
 Then, the map will associate the stored pair of coordinates values along the key. The performance of a map is
