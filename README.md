@@ -8,7 +8,7 @@ The project focuses on concepts on data structures and abstractions.
 
 # Compile the program
 
-1. Download Phone.cpp, Phone.h, Restaurant.csv, and City.csv
+1. Download **Phone.cpp, Phone.h, Restaurant.csv, and City.csv**
 2. To compile the program: **g++ -std=c++11 -Wall Phone.cpp -o calc && ./calc Restaurant.csv City.csv**
 3. The program will output a Points.csv file.
 4. Enter the file to visual graph: https://www.csvplot.com/
