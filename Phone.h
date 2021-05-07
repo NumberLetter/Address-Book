@@ -74,24 +74,13 @@ class Phone
 
 
         // Sets and maps data structure
-<<<<<<< HEAD
-=======
 
         std::map<std::string, std::pair<double, double> > city_map;
         std::string city_file;
         std::vector <std::string> city_name;
         std::vector <double> city_lat;
         std::vector <double> city_lon;
->>>>>>> 26de70b54e43f35b663fc7fdbdd3e6d8c058da80
 
-        std::map<std::string, std::pair<double, double> > city_map;
-        std::string city_file;
-        std::vector <std::string> city_name;
-        std::vector <double> city_lat;
-        std::vector <double> city_lon;
-        
-        
-        
         // Queue
         //Output the closest distance from users city
         //output closest resturaunt to the city, address of the resturaunt from read file,
@@ -133,16 +122,9 @@ class Phone
         // Read CSV map
         void read_CSV_map(std::string fname2);
 
-        //city is unique, city name as key
 
         // Calculates the distance between two business locations
         double get_distance(double, double, double, double);
-
-        // search the location, if data is available, otherwise, insert data
-        //void search();
-
-        // ask user for data
-        //void insert();
 
         void upperCase(std::string strToConvert);
 
